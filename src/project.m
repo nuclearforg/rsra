@@ -56,6 +56,14 @@ MTTF1_real = double(MTTF1_real_sym);
 % Ex. 2
 [Time2, Rel2, Rel2_var, Avail2, Avail2_var] = mc_sim(components2, is_system_failed, Tm, M, false);
 
+%% Average availability (integral mean over mission time span)
+Avail_i = zeros(1, M);
+for i=1:M
+    Avail_i(i) = Avail2(round(rand()*Tm) + 1);
+end
+Avail2_avg = mean(Avail_i);
+Avail2_avg_var = (mean(Avail_i.^2) - Avail2_avg^2)/M;
+
 %% MC syms for MTTF computation
 [MTTF1_MC, MTTF1_MC_var] = mttf(components1, is_system_failed, M);
 [MTTF2_MC, MTTF2_MC_var] = mttf(components2, is_system_failed, M);
