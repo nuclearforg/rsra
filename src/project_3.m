@@ -3,8 +3,8 @@ clear
 
 %% Parametes
 Tm = 500;        % [h] Time horizon
-M_e = 1e2;       % [-] Stories for epistemic uncertainty loop
-M_a = 1e4;       % [-] Stories for aleatory uncertainty loop
+M_e = 1e3;       % [-] Stories for epistemic uncertainty loop
+M_a = 1e3;       % [-] Stories for aleatory uncertainty loop
 
 %% Components' transition rates
 components(1,1) = 5e-3; %[1/h]
