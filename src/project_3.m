@@ -52,10 +52,10 @@ for i=1:M_b
 end
 
 Rel = mean(Rel_b,1);
-Rel_var = mean(Rel_b.^2, 1) - Rel.^2;
+Rel_var = (mean(Rel_b.^2, 1) - Rel.^2)/M_b;
 
 Avail = mean(Avail_b,1);
-Avail_var = mean(Avail_b.^2, 1) - Avail.^2;
+Avail_var = (mean(Avail_b.^2, 1) - Avail.^2)/M_b;
 
 %% Plots
 figure(1)
