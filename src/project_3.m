@@ -16,14 +16,16 @@ components(3,2) = 0.05; %[1/h]
 components(4,1) = 1e-3; %[1/h]
 components(4,2) = 0.25; %[1/h]
 
+var_coeff = 0.1;        %[-]
+m_a = 5e-3;             %[1/h]
+m_c = 3e-3;             %[1/h]
+
 %% l_a & l_c distribution
-m_a = 5e-3;
-v_a = (0.1*m_a)^2;
+v_a = (var_coeff*m_a)^2;
 mu_a = log((m_a^2)/sqrt(v_a+m_a^2));
 sigma_a = sqrt(log(v_a/(m_a^2)+1));
 
-m_c = 3e-3;
-v_c = (0.1*m_c)^2;
+v_c = (var_coeff*m_c)^2;
 mu_c = log((m_c^2)/sqrt(v_c+m_c^2));
 sigma_c = sqrt(log(v_c/(m_c^2)+1));
 
