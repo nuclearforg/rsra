@@ -43,6 +43,7 @@ is_system_failed = @(state) state(4) || ((state(1)  && state(2)) || (state(2) &&
 %
 % Symbolic calculus (MTTF is the integral of Reliability from 0 to +inf)
 syms t
+
 R1_real_sym = exp(t*-1e-3) .* (exp(t*-9e-3) + exp(t*-8e-3) + exp(t*-7e-3) - exp(t*-12e-3)*2);
 MTTF1_real_sym = int(R1_real_sym, t, 0, inf);
 
@@ -53,6 +54,7 @@ MTTF1_real = double(MTTF1_real_sym);
 %% Monte Carlo simulations for reliability and availability
 % Ex. 1
 [Time1, Rel1, Rel1_var, ~, ~] = mc_sim(components1, is_system_failed, Tm, M, true);
+
 % Ex. 2
 [Time2, Rel2, Rel2_var, Avail2, Avail2_var] = mc_sim(components2, is_system_failed, Tm, M, false);
 
@@ -85,12 +87,11 @@ MTTF_val_3sigma = sum(abs(MTTF_trials(:,1) - MTTF1_real) < 3*MTTF_trials(:,2))/N
 % In this matrix we'll store the result of each trial
 Rel_trials = zeros(N_val,2);
 
-% For each trial we compute the MTTF and its std
+% For each trial we compute the Reliability at Tm and its std
 for i=1:N_val
     [~, Rel_trial, Rel_trial_var]= mc_sim(components1, is_system_failed, Tm, M_val, true);
     Rel_trials(i,:) = [Rel_trial(end), sqrt(Rel_trial_var(end))];
 end
-
 Rel_val_1sigma = sum(abs(Rel_trials(:,1) - R1_real_t(Tm)) < Rel_trials(:,2))/N_val;
 Rel_val_2sigma = sum(abs(Rel_trials(:,1) - R1_real_t(Tm)) < 2*Rel_trials(:,2))/N_val;
 Rel_val_3sigma = sum(abs(Rel_trials(:,1) - R1_real_t(Tm)) < 3*Rel_trials(:,2))/N_val;
