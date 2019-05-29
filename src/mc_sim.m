@@ -54,10 +54,10 @@ for i=1:M
     end
 end
 
-unrel = counter_Ft(:)/M;
+unrel = counter_Ft/M;
 rel = 1 - unrel;
 rel_var = (unrel - unrel.^2)/M;
-unav = counter_q(:)/M;
+unav = counter_q/M;
 avail = 1 - unav;
 avail_var = (unav - unav.^2)/M;
 end
