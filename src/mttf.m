@@ -2,7 +2,7 @@ function [MTTF, MTTF_var] = mttf(components, is_failing, M)
 n_comp = size(components,1);
 MTTF_i = zeros(1,M);
 
-parfor i=1:M
+for i=1:M
     t = 0;
     state = zeros(1,n_comp);
     failed = false;

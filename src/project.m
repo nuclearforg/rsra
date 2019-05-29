@@ -70,7 +70,7 @@ MTTF_trials = zeros(N_val,2);
 
 % For each trial we compute the MTTF and its std
 bar = waitbar(0.36, bar, "MTTF validation...");
-parfor i=1:N_val
+for i=1:N_val
     [MTTF_trial, MTTF_trial_var] = mttf(components1, is_system_failed, M_val);
     MTTF_trials(i,:) = [MTTF_trial, sqrt(MTTF_trial_var)];
 end
@@ -85,7 +85,7 @@ Rel_trials = zeros(N_val,2);
 
 % For each trial we compute the MTTF and its std
 bar = waitbar(0.66, bar, "Reliability validation...");
-parfor i=1:N_val
+for i=1:N_val
     [~, Rel_trial, Rel_trial_var]= mc_sim(components1, is_system_failed, Tm, M_val, true);
     Rel_trials(i,:) = [Rel_trial(end), sqrt(Rel_trial_var(end))];
 end
