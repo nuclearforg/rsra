@@ -61,8 +61,8 @@ bar = waitbar(0.07, bar, "Ex.2 MC sim in progress...");
 
 %% MC syms for MTTF computation
 bar = waitbar(0.35, bar, "MTTF sim...");
-[MTTF1_MC, MTTF1_MC_var] = mttf(components1, is_system_failed, M_val);
-[MTTF2_MC, MTTF2_MC_var] = mttf(components2, is_system_failed, M_val);
+[MTTF1_MC, MTTF1_MC_var] = mttf(components1, is_system_failed, M);
+[MTTF2_MC, MTTF2_MC_var] = mttf(components2, is_system_failed, M);
 
 %% MC syms for MTTF validation
 % In this matrix we'll store the result of each trial
