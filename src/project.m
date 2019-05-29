@@ -98,32 +98,62 @@ Rel_val_3sigma = sum(abs(Rel_trials(:,1) - R1_real_t(Tm)) < 3*Rel_trials(:,2))/N
 %% Plots
 figure(1)
 hold on
+title('Case study 1: Reliability')
+xlabel('Time [h]');
+ylabel('R(t)');
 plot(Time1, Rel1, 'k-');
-fplot(R1_real_t, [0 Tm],'LineWidth',2);
 
 figure(2)
+hold on
+title('Case study 1: Var[R(t)]')
+xlabel('Time [h]');
+ylabel('Var[R(t)]');
 plot(Time1,Rel1_var,'k-')
 
 figure(3)
+hold on
+title('Case study 2: Reliability')
+xlabel('Time [h]');
+ylabel('R(t)');
 plot(Time2,Rel2,'k-')
 
 figure(4)
+hold on
+title('Case study 2: Var[R(t)]')
+xlabel('Time [h]');
+ylabel('Var[R(t)]');
 plot(Time2,Rel2_var,'k-')
 
 figure(5)
+hold on
+title('Case study 2: Availability')
+xlabel('Time [h]');
+ylabel('A(t)');
 plot(Time2,Avail2,'k-')
 
 figure(6)
+hold on
+title('Case study 2: Var[A(t)]')
+xlabel('Time [h]');
+ylabel('Var[A(t)]');
 plot(Time2,Avail2_var,'k-')
 
 figure(7)
 hold on
+title('MTTF validation')
+xlabel('Trial')
+ylabel('MTTF')
 errorbar(MTTF_trials(1:20,1), 2*MTTF_trials(1:20,2), 'b.')
 errorbar(MTTF_trials(1:20,1), MTTF_trials(1:20,2), 'r.')
 plot([0 20], [MTTF1_real, MTTF1_real], 'k-')
+legend('\alpha = 0.955','\alpha = 0.683','MTTF_{true}')
 
 figure(8)
 hold on
+title('Rel validation')
+xlabel('Trial')
+ylabel('R(Tm)')
 errorbar(Rel_trials(1:20,1), 2*Rel_trials(1:20,2), 'b.')
 errorbar(Rel_trials(1:20,1), Rel_trials(1:20,2), 'r.')
 plot([0 20], [R1_real_t(Tm), R1_real_t(Tm)], 'k-')
+legend('\alpha = 0.955','\alpha = 0.683','R_{true}(Tm)')
