@@ -9,14 +9,14 @@ M_e = 1e2;       % [-] Stories for epistemic uncertainty loop
 M_a = 1e4;       % [-] Stories for aleatory uncertainty loop
 
 %% Components' transition rates
-components(1,1) = 5e-3; %[h]
-components(1,2) = 0.1;  %[h]
-components(2,1) = 4e-3; %[h]
-components(2,2) = 0.15; %[h]
-components(3,1) = 3e-3; %[h]
-components(3,2) = 0.05; %[h]
-components(4,1) = 1e-3; %[h]
-components(4,2) = 0.25; %[h]
+components(1,1) = 5e-3; %[1/h]
+components(1,2) = 0.1;  %[1/h]
+components(2,1) = 4e-3; %[1/h]
+components(2,2) = 0.15; %[1/h]
+components(3,1) = 3e-3; %[1/h]
+components(3,2) = 0.05; %[1/h]
+components(4,1) = 1e-3; %[1/h]
+components(4,2) = 0.25; %[1/h]
 
 %% l_a & l_c distribution
 m_a = 5e-3;

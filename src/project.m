@@ -10,24 +10,24 @@ M_val = 1e3;     % [-] Stories for MTTF validation
 
 %% Components' transition rates
 % Ex. 1
-components1(1,1) = 5e-3; %[h]
-components1(1,2) = 0;    %[h]
-components1(2,1) = 4e-3; %[h]
-components1(2,2) = 0;    %[h]
-components1(3,1) = 3e-3; %[h]
-components1(3,2) = 0;    %[h]
-components1(4,1) = 1e-3; %[h]
-components1(4,2) = 0;    %[h]
+components1(1,1) = 5e-3; %[1/h]
+components1(1,2) = 0;    %[1/h]
+components1(2,1) = 4e-3; %[1/h]
+components1(2,2) = 0;    %[1/h]
+components1(3,1) = 3e-3; %[1/h]
+components1(3,2) = 0;    %[1/h]
+components1(4,1) = 1e-3; %[1/h]
+components1(4,2) = 0;    %[1/h]
 
 % Ex. 2
-components2(1,1) = 5e-3; %[h]
-components2(1,2) = 0.1;  %[h]
-components2(2,1) = 4e-3; %[h]
-components2(2,2) = 0.15; %[h]
-components2(3,1) = 3e-3; %[h]
-components2(3,2) = 0.05; %[h]
-components2(4,1) = 1e-3; %[h]
-components2(4,2) = 0.25; %[h]
+components2(1,1) = 5e-3; %[1/h]
+components2(1,2) = 0.1;  %[1/h]
+components2(2,1) = 4e-3; %[1/h]
+components2(2,2) = 0.15; %[1/h]
+components2(3,1) = 3e-3; %[1/h]
+components2(3,2) = 0.05; %[1/h]
+components2(4,1) = 1e-3; %[1/h]
+components2(4,2) = 0.25; %[1/h]
 
 %% Failure states
 is_system_failed = @(state) state(4) || ((state(1)  && state(2)) || (state(2) && state(3)) || (state(1) && state(3)));
