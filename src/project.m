@@ -158,3 +158,33 @@ errorbar(Rel_trials(1:20,1), 2*Rel_trials(1:20,2), 'b.')
 errorbar(Rel_trials(1:20,1), Rel_trials(1:20,2), 'r.')
 plot([0 20], [R1_real_t(Tm), R1_real_t(Tm)], 'k-')
 legend('\alpha = 0.955','\alpha = 0.683','R_{true}(Tm)')
+
+%% Display
+fprintf('Case study 1:\n')
+fprintf('  True reliability at t=%d h: %f\n', Tm , R1_real_t(Tm))
+fprintf('  R from MC sim (95%%): (%f; %f)\n',...
+    Rel1(end)-2*sqrt(Rel1_var(end)),...
+    Rel1(end)+2*sqrt(Rel1_var(end)))
+fprintf('  Validation:\n')
+fprintf('    1 sigma: %f\n', Rel_val_1sigma)
+fprintf('    2 sigma: %f\n', Rel_val_2sigma)
+fprintf('    3 sigma: %f\n', Rel_val_3sigma)
+fprintf('  True MTTF: %f\n', MTTF1_real)
+fprintf('  MTTF from MC sim (95%%): (%f; %f)\n',...
+    MTTF1_MC-2*sqrt(MTTF1_MC_var),...
+    MTTF1_MC+2*sqrt(MTTF1_MC_var))
+fprintf('  Validation:\n')
+fprintf('    1 sigma: %f\n', MTTF_val_1sigma)
+fprintf('    2 sigma: %f\n', MTTF_val_2sigma)
+fprintf('    3 sigma: %f\n', MTTF_val_3sigma)
+
+fprintf('Case study 2:\n')
+fprintf('  R from MC sim (95%%): (%f; %f)\n',...
+    Rel2(end)-2*sqrt(Rel2_var(end)),...
+    Rel2(end)+2*sqrt(Rel2_var(end)))
+fprintf('  MTTF from MC sim (95%%): (%f; %f)\n',...
+    MTTF2_MC-2*sqrt(MTTF2_MC_var),...
+    MTTF2_MC+2*sqrt(MTTF2_MC_var))
+fprintf('  Average A from MC sim (95%%): (%f; %f)\n',...
+    Avail2_avg-2*sqrt(Avail2_avg_var),...
+    Avail2_avg+2*sqrt(Avail2_avg_var))
