@@ -79,6 +79,21 @@ MTTF_val_1sigma = sum(abs(MTTF_trials(:,1) - MTTF1_real) < MTTF_trials(:,2))/N_v
 MTTF_val_2sigma = sum(abs(MTTF_trials(:,1) - MTTF1_real) < 2*MTTF_trials(:,2))/N_val;
 MTTF_val_3sigma = sum(abs(MTTF_trials(:,1) - MTTF1_real) < 3*MTTF_trials(:,2))/N_val;
 
+%% Reliability validation
+% In this matrix we'll store the result of each trial
+Rel_trials = zeros(N_val,2);
+
+% For each trial we compute the MTTF and its std
+bar = waitbar(0.66, bar, "Reliability validation...");
+parfor i=1:N_val
+    [~, Rel_trial, Rel_trial_var]= mc_sim(components1, is_system_failed, Tm, M_val, true);
+    Rel_trials(i,:) = [Rel_trial(end), sqrt(Rel_trial_var(end))];
+end
+
+Rel_val_1sigma = sum(abs(Rel_trials(:,1) - R1_real_t(Tm)) < Rel_trials(:,2))/N_val;
+Rel_val_2sigma = sum(abs(Rel_trials(:,1) - R1_real_t(Tm)) < 2*Rel_trials(:,2))/N_val;
+Rel_val_3sigma = sum(abs(Rel_trials(:,1) - R1_real_t(Tm)) < 3*Rel_trials(:,2))/N_val;
+
 close(bar)
 %% Plots
 figure(1)
@@ -106,3 +121,9 @@ hold on
 errorbar(MTTF_trials(1:20,1), 2*MTTF_trials(1:20,2), 'b.')
 errorbar(MTTF_trials(1:20,1), MTTF_trials(1:20,2), 'r.')
 plot([0 20], [MTTF1_real, MTTF1_real], 'k-')
+
+figure(8)
+hold on
+errorbar(Rel_trials(1:20,1), 2*Rel_trials(1:20,2), 'b.')
+errorbar(Rel_trials(1:20,1), Rel_trials(1:20,2), 'r.')
+plot([0 20], [R1_real_t(Tm), R1_real_t(Tm)], 'k-')
