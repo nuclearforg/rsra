@@ -83,26 +83,26 @@ close(bar)
 %% Plots
 figure(1)
 hold on
-plot(Time1, Rel1, 'r');
-fplot(R1_real_t, [0 Tm]);
+plot(Time1, Rel1, 'k-');
+fplot(R1_real_t, [0 Tm],'LineWidth',2);
 
 figure(2)
-plot(Time1,Rel1_var,'red')
+plot(Time1,Rel1_var,'k-')
 
 figure(3)
-plot(Time2,Rel2,'red')
+plot(Time2,Rel2,'k-')
 
 figure(4)
-plot(Time2,Rel2_var,'red')
+plot(Time2,Rel2_var,'k-')
 
 figure(5)
-plot(Time2,Avail2,'red')
+plot(Time2,Avail2,'k-')
 
 figure(6)
-plot(Time2,Avail2_var,'red')
+plot(Time2,Avail2_var,'k-')
 
 figure(7)
 hold on
-errorbar(MTTF_trials(1:20,1), 2*MTTF_trials(1:20,2), '.')
-errorbar(MTTF_trials(1:20,1), MTTF_trials(1:20,2), '.')
-plot([0 20], [MTTF1_real, MTTF1_real])
+errorbar(MTTF_trials(1:20,1), 2*MTTF_trials(1:20,2), 'b.')
+errorbar(MTTF_trials(1:20,1), MTTF_trials(1:20,2), 'r.')
+plot([0 20], [MTTF1_real, MTTF1_real], 'k-')
