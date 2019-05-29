@@ -4,8 +4,8 @@ clear
 bar = waitbar(0, "Initializing...");
 %% Parametes
 Tm = 500;        % [h] Time horizon
-M = 1e4;         % [-] Stories for main MC computation
-N_val = 1e4;     % [-] Trials for MTTF validation
+M = 1e5;         % [-] Stories for main MC computation
+N_val = 1e3;     % [-] Trials for MTTF validation
 M_val = 1e3;     % [-] Stories for MTTF validation
 
 %% Components' transition rates
