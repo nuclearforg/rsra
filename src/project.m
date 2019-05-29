@@ -1,6 +1,7 @@
 close all;
 clear
 
+bar = waitbar(0, "Initializing...");
 %% Parametes
 Tm = 500;        % [h] Time horizon
 M = 1e4;         % [-] Stories for main MC computation
@@ -40,7 +41,7 @@ is_system_failed = @(state) state(4) || ((state(1)  && state(2)) || (state(2) &&
 %
 % Reliability of the entire system
 % R_sys = R_D * (R_A*R_B*R_C + R)
-% 
+%
 % Symbolic calculus (MTTF is the integral of Reliability from 0 to +inf)
 syms t
 R1_real_sym = exp(t*-1e-3) .* (exp(t*-9e-3) + exp(t*-8e-3) + exp(t*-7e-3) - exp(t*-12e-3)*2);
@@ -52,11 +53,14 @@ MTTF1_real = double(MTTF1_real_sym);
 
 %% Monte Carlo simulations for reliability and availability
 % Ex. 1
+bar = waitbar(0.01, bar, "Ex.1 MC sim in progress...");
 [Time1, Rel1, Rel1_var, ~, ~] = mc_sim(components1, is_system_failed, Tm, M, true);
 % Ex. 2
+bar = waitbar(0.07, bar, "Ex.2 MC sim in progress...");
 [Time2, Rel2, Rel2_var, Avail2, Avail2_var] = mc_sim(components2, is_system_failed, Tm, M, false);
 
 %% MC syms for MTTF computation
+bar = waitbar(0.35, bar, "MTTF sim...");
 [MTTF1_MC, MTTF1_MC_var] = mttf(components1, is_system_failed, M_val);
 [MTTF2_MC, MTTF2_MC_var] = mttf(components2, is_system_failed, M_val);
 
@@ -65,6 +69,7 @@ MTTF1_real = double(MTTF1_real_sym);
 MTTF_trials = zeros(N_val,2);
 
 % For each trial we compute the MTTF and its std
+bar = waitbar(0.36, bar, "MTTF validation...");
 parfor i=1:N_val
     [MTTF_trial, MTTF_trial_var] = mttf(components1, is_system_failed, M_val);
     MTTF_trials(i,:) = [MTTF_trial, sqrt(MTTF_trial_var)];
@@ -74,6 +79,7 @@ MTTF_val_1sigma = sum(abs(MTTF_trials(:,1) - MTTF1_real) < MTTF_trials(:,2))/N_v
 MTTF_val_2sigma = sum(abs(MTTF_trials(:,1) - MTTF1_real) < 2*MTTF_trials(:,2))/N_val;
 MTTF_val_3sigma = sum(abs(MTTF_trials(:,1) - MTTF1_real) < 3*MTTF_trials(:,2))/N_val;
 
+close(bar)
 %% Plots
 figure(1)
 hold on
