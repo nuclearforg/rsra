@@ -1,7 +1,6 @@
 close all;
 clear
 
-bar = waitbar(0, "Initializing...");
 %% Parametes
 Tm = 500;        % [h] Time horizon
 M = 1e5;         % [-] Stories for main MC computation
@@ -53,14 +52,11 @@ MTTF1_real = double(MTTF1_real_sym);
 
 %% Monte Carlo simulations for reliability and availability
 % Ex. 1
-bar = waitbar(0.01, bar, "Ex.1 MC sim in progress...");
 [Time1, Rel1, Rel1_var, ~, ~] = mc_sim(components1, is_system_failed, Tm, M, true);
 % Ex. 2
-bar = waitbar(0.07, bar, "Ex.2 MC sim in progress...");
 [Time2, Rel2, Rel2_var, Avail2, Avail2_var] = mc_sim(components2, is_system_failed, Tm, M, false);
 
 %% MC syms for MTTF computation
-bar = waitbar(0.35, bar, "MTTF sim...");
 [MTTF1_MC, MTTF1_MC_var] = mttf(components1, is_system_failed, M);
 [MTTF2_MC, MTTF2_MC_var] = mttf(components2, is_system_failed, M);
 
@@ -69,12 +65,10 @@ bar = waitbar(0.35, bar, "MTTF sim...");
 MTTF_trials = zeros(N_val,2);
 
 % For each trial we compute the MTTF and its std
-bar = waitbar(0.36, bar, "MTTF validation...");
 for i=1:N_val
     [MTTF_trial, MTTF_trial_var] = mttf(components1, is_system_failed, M_val);
     MTTF_trials(i,:) = [MTTF_trial, sqrt(MTTF_trial_var)];
 end
-
 MTTF_val_1sigma = sum(abs(MTTF_trials(:,1) - MTTF1_real) < MTTF_trials(:,2))/N_val;
 MTTF_val_2sigma = sum(abs(MTTF_trials(:,1) - MTTF1_real) < 2*MTTF_trials(:,2))/N_val;
 MTTF_val_3sigma = sum(abs(MTTF_trials(:,1) - MTTF1_real) < 3*MTTF_trials(:,2))/N_val;
@@ -84,7 +78,6 @@ MTTF_val_3sigma = sum(abs(MTTF_trials(:,1) - MTTF1_real) < 3*MTTF_trials(:,2))/N
 Rel_trials = zeros(N_val,2);
 
 % For each trial we compute the MTTF and its std
-bar = waitbar(0.66, bar, "Reliability validation...");
 for i=1:N_val
     [~, Rel_trial, Rel_trial_var]= mc_sim(components1, is_system_failed, Tm, M_val, true);
     Rel_trials(i,:) = [Rel_trial(end), sqrt(Rel_trial_var(end))];
@@ -94,7 +87,6 @@ Rel_val_1sigma = sum(abs(Rel_trials(:,1) - R1_real_t(Tm)) < Rel_trials(:,2))/N_v
 Rel_val_2sigma = sum(abs(Rel_trials(:,1) - R1_real_t(Tm)) < 2*Rel_trials(:,2))/N_val;
 Rel_val_3sigma = sum(abs(Rel_trials(:,1) - R1_real_t(Tm)) < 3*Rel_trials(:,2))/N_val;
 
-close(bar)
 %% Plots
 figure(1)
 hold on

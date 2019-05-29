@@ -1,8 +1,6 @@
 close all;
 clear
 
-bar = waitbar(0, "Initializing...");
-
 %% Parametes
 Tm = 500;        % [h] Time horizon
 M_e = 1e2;       % [-] Stories for epistemic uncertainty loop
@@ -50,10 +48,6 @@ for i=1:M_e
 
     % Aleatory uncertainty simulation
     [Time_axis, Rel_e(i,:), ~, Avail_e(i,:), ~] = mc_sim(components, is_system_failed, Tm, M_a, false);
-
-    if mod(i,M_e/20) == 0
-        waitbar(i/M_e, bar, "MC sim in progress...");
-    end
 end
 
 Rel = mean(Rel_e,1);
@@ -79,5 +73,3 @@ fill([Time_axis,fliplr(Time_axis)], [A_plus_std,fliplr(A_minus_std)], 0.8*[1 1 1
 plot(Time_axis, Avail, 'k-', 'LineWidth', 2)
 plot(Time_axis,A_plus_std,'k-')
 plot(Time_axis,A_minus_std,'k-')
-
-close(bar)
