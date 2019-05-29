@@ -3,8 +3,8 @@ clear
 
 %% Parametes
 Tm = 500;        % [h] Time horizon
-M_e = 1e3;       % [-] Stories for epistemic uncertainty loop
-M_a = 1e3;       % [-] Stories for aleatory uncertainty loop
+M_b = 1e3;       % [-] Stories for bayesian integral loop
+M_r = 1e3;       % [-] Stories for reliability MC sim
 
 %% Components' transition rates
 components(1,1) = 5e-3; %[1/h]
@@ -32,13 +32,12 @@ is_system_failed = @(state) state(4) || ((state(1)  && state(2)) || (state(2) &&
 
 %% Monte Carlo simulations for reliability and availability
 
-Rel_e = zeros(M_e,501);
-Avail_e = zeros(M_e,501);
+Rel_b = zeros(M_b,Tm+1);
+Avail_b = zeros(M_b,Tm+1);
 
-% External epistemic loop
-for i=1:M_e
-    % Sample a realization of the epistemic variables from the
-    % distributions
+% Bayesian integral loop
+for i=1:M_b
+    % Sample a realization of components' transition rates
     l_a = lognrnd(mu_a, sigma_a);
     l_c = lognrnd(mu_c, sigma_c);
 
@@ -46,14 +45,15 @@ for i=1:M_e
     components(1,1) = l_a;
     components(3,1) = l_c;
 
-    % Aleatory uncertainty simulation
-    [Time_axis, Rel_e(i,:), ~, Avail_e(i,:), ~] = mc_sim(components, is_system_failed, Tm, M_a, false);
+    % MC simulation of the system
+    [Time_axis, Rel_b(i,:), ~, Avail_b(i,:), ~] = mc_sim(components, is_system_failed, Tm, M_r, false);
 end
 
-Rel = mean(Rel_e,1);
-Rel_var = mean(Rel_e.^2, 1) - Rel.^2;
-Avail = mean(Avail_e,1);
-Avail_var = mean(Avail_e.^2, 1) - Avail.^2;
+Rel = mean(Rel_b,1);
+Rel_var = mean(Rel_b.^2, 1) - Rel.^2;
+
+Avail = mean(Avail_b,1);
+Avail_var = mean(Avail_b.^2, 1) - Avail.^2;
 
 %% Plots
 figure(1)
