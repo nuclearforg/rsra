@@ -60,8 +60,37 @@ Avail_var = (mean(Avail_b.^2, 1) - Avail.^2)/M_b;
 %% Plots
 figure(1)
 hold on
-plot(Time_axis, Rel, 'k-', 'LineWidth', 2)
+title('Case study 3: Reliability')
+xlabel('Time [h]');
+ylabel('R(t)');
+plot(Time_axis, Rel, 'k-')
 
 figure(2)
 hold on
-plot(Time_axis, Avail, 'k-', 'LineWidth', 2)
+title('Case study 3: Var[R(t)]')
+xlabel('Time [h]');
+ylabel('Var[R(t)]');
+plot(Time_axis, Rel_var, 'k-')
+
+figure(3)
+hold on
+title('Case study 3: Availability')
+xlabel('Time [h]');
+ylabel('A(t)');
+plot(Time_axis, Avail, 'k-')
+
+figure(4)
+hold on
+title('Case study 3: Var[A(t)]')
+xlabel('Time [h]');
+ylabel('Var[A(t)]');
+plot(Time_axis, Avail_var, 'k-')
+
+%% Display
+fprintf('Case study 3:\n')
+fprintf('  R from MC sim (95%%): (%f; %f)\n',...
+    Rel(end)-2*sqrt(Rel_var(end)),...
+    Rel(end)+2*sqrt(Rel_var(end)))
+fprintf('  A from MC sim (95%%): (%f; %f)\n',...
+    Avail(end)-2*sqrt(Avail_var(end)),...
+    Avail(end)+2*sqrt(Avail_var(end)))
