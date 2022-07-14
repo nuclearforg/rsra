@@ -60,18 +60,8 @@ Avail_var = (mean(Avail_b.^2, 1) - Avail.^2)/M_b;
 %% Plots
 figure(1)
 hold on
-R_plus_std = Rel + 2*sqrt(Rel_var);
-R_minus_std = Rel - 2*sqrt(Rel_var);
-fill([Time_axis,fliplr(Time_axis)], [R_plus_std,fliplr(R_minus_std)], 0.8*[1 1 1], 'EdgeColor','none')
 plot(Time_axis, Rel, 'k-', 'LineWidth', 2)
-plot(Time_axis,R_plus_std,'k-')
-plot(Time_axis,R_minus_std,'k-')
 
 figure(2)
 hold on
-A_plus_std = Avail + 2*sqrt(Avail_var);
-A_minus_std = Avail - 2*sqrt(Avail_var);
-fill([Time_axis,fliplr(Time_axis)], [A_plus_std,fliplr(A_minus_std)], 0.8*[1 1 1], 'EdgeColor','none')
 plot(Time_axis, Avail, 'k-', 'LineWidth', 2)
-plot(Time_axis,A_plus_std,'k-')
-plot(Time_axis,A_minus_std,'k-')
